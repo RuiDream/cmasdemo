@@ -66,26 +66,29 @@
     <div class="layui-side layui-side-menu">
         <!--带滚动条垂直导航-->
         <div class="layui-side-scroll layui-bg-black">
-            <div class="layui-logo">抑郁症预警标记平台</div>
+            <div class="layui-logo">C-mas AI demo</div>
             <ul class="layui-nav layui-nav-tree" lay-filter="navtree">
                 <!--默认展开-->
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;" title=""><i class="layui-icon layui-icon-form"></i><cite>任务分配</cite></a>
+                    <a href="javascript:;" title=""><i class="layui-icon layui-icon-form"></i><cite>接诊任务</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" lay-href="/static/dpmark/html/task/task.html">任务列表</a></dd>
+                        <dd><a href="javascript:;" lay-href="/static/dpmark/html/task/task.html">病人信息输入</a></dd>
                     </dl>
                 </li>
                 <!--默认展开-->
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;" title="文件"><i class="layui-icon layui-icon-file-b"></i><cite>标记管理</cite></a>
+                    <a href="javascript:;" title="文件"><i class="layui-icon layui-icon-file-b"></i><cite>医用百科</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" lay-href="/static/dpmark/html/video/videotest.html">视频标记</a></dd>
+                        <dd><a href="javascript:;" lay-href="/static/mas/html/video/videotest.html">疾病和药物查询</a></dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" lay-href="/static/mas/html/video/addvalue.html">经验值添加</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;" title=""><i class="layui-icon layui-icon-icon-form"></i><cite>视频库</cite></a>
+                    <a href="javascript:;" title=""><i class="layui-icon layui-icon-icon-form"></i><cite>病人管理</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" lay-href="/static/dpmark/html/upload/upload.html">视频上载</a></dd>
+                        <dd><a href="javascript:;" lay-href="/static/mas/html/upload/upload.html">已接诊病人</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed" id="userCtrl">
@@ -119,13 +122,13 @@
                                                 1、系统分为管理员和医生，医生账户可以由管理员创建得到。
                                             </div>
                                             <div class="layui-card-body">
-                                                2、管理员和医生都可以上传抑郁症视频，视频上传成功后自动生成未完成的标记任务。
+                                                2、管理员和医生都可以查询病人情况和搜索相关信息。
                                             </div>
                                             <div class="layui-card-body">
-                                                3、医生登录系统，领取任务，点击未完成的任务跳转到标记页面进行标记。
+                                                3、医生登录系统，开始接诊病人。
                                             </div>
                                             <div class="layui-card-body">
-                                                4、医生选取矩形区域单击矩形区域进行放大，在放大后的视频上可以使用画笔进行标注，同时选择对应的标签进行提交。
+                                                4、医生对病人的主诉和诊断症状进行输入，提交后得到系统分析结果。
                                             </div>
                                         </div>
                                     </div>
