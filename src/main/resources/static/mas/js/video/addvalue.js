@@ -35,7 +35,7 @@ layui.use(['layer', 'form'], function () {
             success: function (data) {
                 console.log(data);
                 //alert(JSON.stringify({name:labelText}));
-                if (data == null) {
+                if (data == false) {
                     layer.msg("添加失败");
                 } else {
                     layer.msg("添加成功");

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/add")
@@ -28,7 +29,7 @@ public class AddvalueController {
     DiseaseRepository dieaseRepo;
     @PostMapping(value = "/addrelation")
     @ResponseBody
-    public String submitLable(HttpServletRequest request, @RequestBody SubmitaddRequest slr) throws Exception{
+    public String submitadd(HttpServletRequest request, @RequestBody SubmitaddRequest slr) throws Exception{
         System.out.println("开始增加");
         String label1 = slr.getLabel1();
         String label2 = slr.getLabel2();
@@ -39,15 +40,23 @@ public class AddvalueController {
         Long uid = (Long) request.getSession().getAttribute("user_id");
         checkLabel(label1, entity1);
         checkLabel(label2, entity2);
-
+        DiseaseModel dis = dieaseRepo.findByName(entity2);
         DrugModel drug = drugRepo.findByName(entity1);
-        if(drug == null){
-            DiseaseModel dis = dieaseRepo.findByName(entity1);
-            return JsonSimple.toJson(dis);
-        }
         System.out.println(JsonSimple.toJson(drug));
+        System.out.println(JsonSimple.toJson(dis));
+        return "true";
+//        drug.addCure(dis,new Random().nextLong());
+//        dieaseRepo.save(dis);
+//        drugRepo.save(drug);
+
+//        DrugModel drug = drugRepo.findByName(entity1);
+//        if(drug == null){
+//            DiseaseModel dis = dieaseRepo.findByName(entity1);
+//            return JsonSimple.toJson(dis);
+//        }
+//        System.out.println(JsonSimple.toJson(drug));
         //return JsonSimple.toJson(drug);
-        return "hello";
+        //return "true";
     }
 
     private void checkLabel(String label2, String entity2) {

@@ -3,6 +3,9 @@ package com.example.demo.model;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+
+import java.util.List;
 
 @NodeEntity
 public class DrugModel {
@@ -113,5 +116,19 @@ public class DrugModel {
 
     public String getSide_effects() {
         return side_effects;
+    }
+    @Relationship(type="cure")
+    private List<CureRelation> cure;
+
+    public List<CureRelation> getCure() {
+        return cure;
+    }
+
+    public void setCure(List<CureRelation> cure) {
+        this.cure = cure;
+    }
+    public void addCure(DiseaseModel dis,Long count){
+        CureRelation relation = new CureRelation(count,dis,this);
+        this.cure.add(relation);
     }
 }

@@ -7,6 +7,7 @@ import org.neo4j.ogm.annotation.*;
 @RelationshipEntity(type="cure")
 public class CureRelation {
     @Id
+    @GeneratedValue
     private Long id;
 
     public CureRelation(Long id, DiseaseModel startNode, DrugModel endNode) {
@@ -21,7 +22,6 @@ public class CureRelation {
 
     @StartNode
     private DiseaseModel startNode;
-
     public Long getId() {
         return id;
     }
