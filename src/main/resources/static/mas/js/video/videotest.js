@@ -90,7 +90,8 @@ layui.use(['layer', 'form'], function () {
                 if (data == null) {
                     layer.msg("未找到相关词");
                 } else {
-                    document.getElementById("result_content").value=JSON.stringify(data);
+                    //document.getElementById("result_content").value=JSON.stringify(data);
+                    document.getElementById("result_content").value=data;
                     //layer.msg(data);
                 }
             },

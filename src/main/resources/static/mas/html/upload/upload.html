@@ -18,7 +18,7 @@
             <div class="layui-card">
                 <div class="layui-card-body">
                     <div class="layui-upload">
-                        <button class="layui-btn layui-btn-normal" id="testList" type="button">选择多文件</button>
+
                         <div class="layui-upload-list">
                             <table class="layui-table">
                                 <thead>
@@ -34,7 +34,7 @@
                                 <tbody id="demoList"></tbody>
                             </table>
                         </div>
-                        <button class="layui-btn" id="testListAction" type="button">开始上传</button>
+
                     </div>
                 </div>
             </div>
@@ -43,98 +43,46 @@
 </div>
 <script src="/static/layui/layui.js"></script>
 <script>
-    //新增 以下三行
-    var index = 2;//初始下标
-    var uploadNa = "";//初始一个文件上传变量
-    var urls = "null";
-
-
-    // 新增 以下四行 更改layui.use('upload', function(){
-    layui.use(['form', 'table', 'laydate', 'upload'], function () {
-        var form = layui.form, table = layui.table;
-        var layer = layui.layer, upload = layui.upload;
-        // var url = "";// 访问路径
-
-        var $ = layui.jquery
-            , upload = layui.upload;
-
-        //多文件列表示例
-
-        var demoListView = $('#demoList')
-            , uploadListIns = upload.render({
-            elem: '#testList'
-            , url: '/upload/upload'
-            , accept: 'video'
-            , multiple: true
-            , auto: false
-            , bindAction: '#testListAction'
-            , dataType: "json"
-            , choose: function (obj) {
-                var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
-                //读取本地文件
-                obj.preview(function (index, file, result) {
-                    var tr = $(['<tr id="upload-' + index + '">'
-                        , '<td>' + file.name + '</td>'
-                        , '<td>' + (file.size / 1024).toFixed(1) + 'kb</td>'
-                        , '<td>等待上传</td>'
-                        , '<td>'
-                        , '<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-                        // ,'<button class="layui-btn layui-btn-xs demo-rename ">重命名</button>'
-                        , '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
-                        , '</td>'
-                        , '</tr>'].join(''));
-
-                    //单个重传
-                    tr.find('.demo-reload').on('click', function () {
-                        obj.upload(index, file);
-                    });
-
-                    // //单个重命名
-                    // tr.find('.demo-rename').on('click', function(){
-                    //     obj.resetFile(index, file, 'demo.mp4');
+    layui.use('table',function(obj){
+        var $ = layui.jquery;
+        var table = layui.table;
+        console.log("开始发送请求")
+        $.ajax({
+            type:'POST',
+            url:'/find/PatientInfo',
+            dataType: "json",
+            contentType:"application/json",
+            data:JSON.stringify({name:"hello"}),
+            success:function(data){
+                console.log(data);
+                // var data2 = JSON.stringify(data);
+                // console.log(data2);
+                if(data){
+                    // obj.update({
+                    //     status:2
                     // });
+                    console.log("载入表格");
+                    $("#demoList").html("");
+                    var str1;
+                    for(var i=0;i<data.length;i++){
+                        str1 = "<tr>"+
+                            "<td>"+data[i].id + "</td>" +
+                            "<td>"+data[i].name + "</td>" +
+                            "<td>"+data[i].sex + "</td>" +
+                            "<td>"+data[i].age + "</td>" +
+                            "<td>"+data[i].apartment + "</td>" +
+                            "<td>"+data[i].disease_result + "</td>" +
+                            "</tr>";
+                        $("#demoList").append(str1);
 
-                    //删除
-                    tr.find('.demo-delete').on('click', function () {
-                        delete files[index]; //删除对应的文件
-                        tr.remove();
-                        uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
-                    });
+                    }
 
-                    demoListView.append(tr);
-                });
-            }
-            , done: function (res, index, upload) {//服务端响应信息、当前文件的索引、重新上传的方法
-                if (res.code === 0) { //上传成功
-                    // var response='${res.code}'
-                    // layer.alert(response);
-                    //新增 以下两行
-                    alert(res.msg);
-                    uploadNa = uploadNa + res.msg + ",";
-                    $("#uploadname").val(uploadNa);
-                    var tr = demoListView.find('tr#upload-' + index)
-                        , tds = tr.children();
-                    tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
-                    tds.eq(3).html(''); //清空操作
-                    return delete this.files[index]; //删除文件队列已经上传成功的文件
+                    //table.reload("completed");
                 }
-                this.error(res, index, upload);
             }
-            , error: function (res, index, upload) {
-                var tr = demoListView.find('tr#upload-' + index)
-                    , tds = tr.children();
-                 alert(res.msg);
-                tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
-                tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
-            }
-            // ,allDone: function(obj){ //当文件全部被提交后，才触发
-            //     console.log(obj.total); //得到总文件数
-            //     console.log(obj.successful); //请求成功的文件数
-            //     console.log(obj.aborted); //请求失败的文件数
-            // }
-        });
 
+        })
     });
-</script>
+    </script>
 </body>
 </html>

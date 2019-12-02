@@ -2,13 +2,16 @@ package com.example.demo;
 
 import com.example.demo.model.DiseaseModel;
 import com.example.demo.model.DrugModel;
+import com.example.demo.model.PatientModel;
 import com.example.demo.repository.DiseaseRepository;
 import com.example.demo.repository.DrugRepository;
+import com.example.demo.repository.PatientRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -18,6 +21,9 @@ class DemoApplicationTests {
 
     @Autowired
     DiseaseRepository dieaRepo;
+
+    @Autowired
+    PatientRepository patiRepo;
 
     @Test
     void contextLoads() {
@@ -40,6 +46,12 @@ class DemoApplicationTests {
             System.out.println("创建失败");
         System.out.println(JsonSimple.toJson(d));
 
+    }
+
+    @Test
+    public void testFindByLabel(){
+        List<PatientModel> p = (List<PatientModel>) patiRepo.findAll();
+        System.out.println(p);
     }
 
 }
