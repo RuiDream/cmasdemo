@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Input</title>
+    <!-- css -->
+    <link rel="stylesheet" href="../css/input.css">
+    <!-- <link rel="stylesheet" href="/static/mas/css/input.css"> -->
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body id="page">
+    <div id="content">
+        <!-- 病人信息填写 -->
+        <div class="contentDetail">
+            <!-- 病人照片 -->
+            <div class="photoBg">
+                <div class="photo" @click="selectPhoto">
+                    <img v-bind:src="photoUrl" alt="照片格式为jpeg、jpg、png">
+                </div>
+                <!-- 隐藏的file input -->
+                <input type="file" ref="fileInput" accept="image/jpeg,image/jpg,image/png" style="display: none"
+                    @change="changePhoto($event)" />
+            </div>
+            <!-- 病人信息 -->
+            <div class="patientInfo">
+                <div class="infoItem" v-for='(item,name) in patient'>
+                    <div class="infoName">{{item.text}}</div>
+                    <!-- 性别 下拉列表 -->
+                    <div v-if="name=='gender'" class="input" v-bind:class="name">
+                        <select v-bind:disabled="submitSuccess" v-model="patient.gender.value">
+                            <option disabled value="">男/女</option>
+                            <option value="man">男</option>
+                            <option value="woman">女</option>
+                        </select>
+                    </div>
+                    <!-- 年龄 数字 -->
+                    <div v-else-if="name=='age'" class="input" v-bind:class="name">
+                        <input type="number" v-bind:disabled="submitSuccess" min='1' max='200'
+                            v-model="patient[name].value" />
+                    </div>
+                    <!-- 备注 文本域 -->
+                    <div v-else-if="name=='remark'" class="input" v-bind:class="name">
+                        <textarea v-bind:disabled="submitSuccess" v-model="patient[name].value"></textarea>
+                    </div>
+                    <!-- 其他 输入栏 -->
+                    <div v-else class="input" v-bind:class="name">
+                        <input v-bind:disabled="submitSuccess" type="text" v-model="patient[name].value" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 病情描述以及文件上传 -->
+        <div class="contentDetail" v-if="!submitSuccess">
+            <!-- 症状描述 -->
+            <div class="describe">
+                <div class="title" style="font-size: 16px;">
+                    <img src="../img/circle.png" alt="" />
+                    <b>症状描述*</b>
+                </div>
+                <div class="describeGb">
+                    <textarea class="text" v-model="describe" placeholder="输入病人症状自述" style="resize: none;"></textarea>
+                </div>
+            </div>
+            <!-- 相关检查辅助病情 -->
+            <div class="uploadFile">
+                <div class="title" style="font-size: 16px;">
+                    <img src="../img/circle.png" alt="" />
+                    <b>相关检查辅助病情</b>
+                </div>
+                <div class="files">
+                    <div class="file">
+                        <div class="file-type">EEG文件</div>
+                        <div class="file-choose">选择文件</div>
+                    </div>
+                    <div class="file">
+                        <div class="file-type">近红外文件</div>
+                        <div class="file-choose">选择文件</div>
+                    </div>
+                    <div class="file">
+                        <div class="file-type">病症访谈文件</div>
+                        <div class="file-choose">选择文件</div>
+                    </div>
+                    <div class="file">
+                        <div class="file-type">病历表文件</div>
+                        <div class="file-choose">选择文件</div>
+                    </div>
+                </div>
+                <div class="button">
+                    <div class="upload" @click="uploadFiles">
+                        <img src="../img/upload.png" alt="">
+                        上传文件
+                    </div>
+                    <div class="tip">支持扩展名 .rar .zip .doc .docx .pdf</div>
+                </div>
+            </div>
+        </div>
+        <!-- 提交按钮 -->
+        <div class="contentDetail" v-if="!submitSuccess">
+            <div class="submit" @click="submit">提交</div>
+        </div>
+        <!-- 病情分析 -->
+        <div class="contentDetail analysis" v-if="submitSuccess">
+            <div id="title"><b>病情分析</b></div>
+            <div class="first-line">
+                <div class="result">
+                    <div class="title">
+                        <div class="left">
+                            <img src="../img/refresh.png" alt="">
+                            病情诊断结果
+                        </div>
+                        <div class="right">Show more</div>
+                    </div>
+                    <div class="content">
+                        <div class="circle mania" style="background-color:#FFA500;top:-20px;">躁狂<br>{{result.mania_pro}}</div>
+                        <div class="circle depression" style="background-color:#FF69B4;top:10px">抑郁<br>{{result.depression_pro}}</div>
+                        <div class="circle disease" style="background-color:#20B2AA;">诊断结果<br>{{result.disease_result}}</div>
+                        <div class="circle schizophrenia" style="background-color:#6A5ACD;top:-10px;">精神分裂<br>{{result.schizophrenia_pro}}</div>
+                        <div class="circle anxiety" style="background-color:#4169E1;;top:30px">焦虑症<br>{{result.anxiety_pro}}</div>
+                    </div>
+                </div>
+                <div class="words">
+                    <div class="tip">症状关键词</div>
+                    <div class="content">
+                        <div class="word" v-for="(word,index) in keyWords" v-bind:style="{'background-color':keyWordsColor[index%9]+',0.24)','color':keyWordsColor[index%9]+')'}">{{word}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="recommends">
+                <div class="title">
+                    <div class="all">
+                        <img src="../img/heart.png" alt="">
+                        治疗推荐
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="recommend" v-for="recommend in recommends">
+                        <div class="circle"></div>
+                        {{recommend}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- <script src="/static/mas/js/input.js"></script> -->
+<script src="../js/input.js"></script>
+
+</html>

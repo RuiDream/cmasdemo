@@ -1,0 +1,348 @@
+/* 整体页面 */
+#content {
+    margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: whitesmoke;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+/* 分成上下板块 */
+.contentDetail {
+    margin: 0;
+    width: 780px;
+    display: flex;
+    background-color: white;
+}
+
+/* 照片 */
+.photoBg,
+.patientInfo {
+    box-sizing: border-box;
+    height: 200px;
+    width: 150px;
+    padding: 10px;
+    background: white;
+    border: #808080 dotted 1px;
+    margin: 20px;
+}
+
+.photo {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(230, 230, 230);
+    margin: auto;
+}
+
+.photo img {
+    margin: auto;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* 病人信息栏 */
+.patientInfo {
+    width: 420px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.infoItem {
+    display: flex;
+    width: 180px;
+    height: 26px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.infoItem .infoName {
+    width: 40%;
+    height: 100%;
+}
+
+.infoItem .input {
+    width: 60%;
+    height: 100%;
+}
+
+.infoItem input,
+select,
+textarea {
+    width: 100%;
+    color: #666;
+}
+
+.infoItem .remark textarea {
+    width: 285px;
+    height: 40px;
+    resize: none;
+}
+
+/* 症状描述 */
+.describe,
+.uploadFile {
+    box-sizing: border-box;
+    height: 200px;
+    width: 400px;
+    padding: 10px;
+    background: white;
+    margin: 20px;
+    align-items: center;
+}
+
+.describe .title,
+.uploadFile .title {
+    display: flex;
+    align-items: center;
+}
+
+.describe .describeGb {
+    background-color: rgb(230, 230, 230);
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.describe img,
+.uploadFile img {
+    height: 16px;
+    width: 16px;
+    margin-right: 10px;
+}
+
+.describe textarea {
+    margin-top: 5px;
+    height: 150px;
+    width: 320px;
+}
+
+/* 文件上传 */
+.uploadFile .files {
+    margin-top: 10px;
+    background-color: rgb(230, 230, 230);
+    padding: 3px;
+}
+
+.uploadFile .file,
+.button {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background-color: white;
+    box-sizing: border-box;
+    display: flex;
+    width: 320px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.uploadFile .file-type {
+    width: 40%;
+    text-align: center;
+}
+
+/* 选择文件 */
+.uploadFile .file-choose {
+    width: 55%;
+    height: 80%;
+    background-color: rgb(230, 230, 230);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+}
+
+.uploadFile .button {
+    justify-content: space-around;
+}
+
+.uploadFile .button img {
+    height: 16px;
+    width: 16px;
+}
+
+.uploadFile .button .upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    border: rgb(230, 230, 230) solid 2px;
+    border-radius: 5px;
+}
+
+.uploadFile .button .tip {
+    font-size: 80%;
+    color: #666;
+}
+
+/* 提交按钮 */
+.contentDetail .submit {
+    width: 100px;
+    background-color: #1E90FF;
+    color: white;
+    font-size: 16px;
+    margin: auto;
+    border-radius: 3px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+/* 病情分析 */
+.analysis {
+    background-color: rgb(230, 230, 230);
+    display: block;
+    padding: 5px 20px 20px 20px;
+    box-sizing: border-box;
+    color: black;
+    font-size: 14px;
+}
+
+.analysis img {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+}
+
+.analysis #title {
+    margin-left: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #3CB371;
+    font-size: 20px;
+}
+
+.analysis .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    font-size: 15px;
+    height: 30px;
+    background-color: whitesmoke;
+    padding: 0px 20px 0px 20px;
+}
+
+.analysis .title div {
+    display: flex;
+    align-items: center;
+}
+
+/* 病情诊断结果 */
+.first-line {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.first-line .result,
+.recommends {
+    border-radius: 10px;
+    width: 55%;
+    background-color: white;
+    height: 180px;
+    overflow: hidden;
+}
+
+/* 分析结果展示 */
+.first-line .result .content {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.first-line .result .circle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.first-line .result .disease {
+    width: 100px;
+    height: 100px;
+}
+
+.first-line .result .schizophrenia,
+.first-line .result .depression {
+    width: 80px;
+    height: 80px;
+}
+
+.first-line .result .mania,
+.first-line .result .anxiety {
+    width: 60px;
+    height: 60px;
+}
+
+/* 关键词 */
+.words {
+    width: 43%;
+}
+
+.words .content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.words .tip {
+    margin-left: 10px;
+}
+
+.words .word {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    color: white;
+    background-color: #778899;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-right: 15px;
+    overflow: hidden;
+}
+
+/* 治疗推荐 */
+.recommends {
+    width: 100%;
+    height: auto;
+}
+
+.recommends .content {
+    padding: 20px 20px 0px 20px;
+}
+
+.recommends .recommend {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.recommend .circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: #666 solid 1px;
+    margin-right: 20px;
+}
